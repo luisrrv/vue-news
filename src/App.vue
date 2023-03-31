@@ -1,15 +1,18 @@
 <template>
-  <NavBar string="nav text" />
+  <NavBar title />
+  <CounterComp string="nav text" />
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 </template>
 
 <script>
+import CounterComp from './components/CounterComp.vue'
 import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'App',
   components: {
+    CounterComp,
     NavBar
   },
   created(){

@@ -1,8 +1,8 @@
-<template>
-    <h1>{{ greeting }}</h1>
-    <h3 class="number">{{ count }}</h3>
-    <button class="btn" @click="decCount">-</button>
-    <button class="btn" @click="incCount">+</button>
+<template >
+    <nav class="navbar">
+        <h3>{{title}}</h3>
+        <input type="text" name="search" id="search" placeholder="Search">
+    </nav>
 </template>
 
 <script>
@@ -10,51 +10,40 @@ export default {
     name: 'NavBar',
     props: {
         msg: String,
-        string: {
-            type: String,
-            required: true
-        },
-        counter: {
-            type: Number,
-            default: 0,
-        }
+        // title: {
+        //     type: String,
+        //     required: true,
+        //     default: 'Hello!'
+        // }
     },
     data(){
         return {
-            greeting: 'Hello!',
-            count: 0,
+            title: 'Vue Counter'
         }
     },
-    created() {  
-        console.log(this.greeting);
-        console.log(this.string);
-        console.log('count:',this.count);
-    },
-    methods: {
-        incCount() {
-            this.count++;
-        },
-        decCount() {
-            this.count--;
-        }
+    created() {
+        console.log('title:',this.title)
     }
 }
 </script>
 
 <style>
-    .btn {
-        margin: 8px;
-        padding: 8px 16px;
-        border: none;
-        background-color: black;
-        color: white;
-        border-radius: 12px;
-        font-size: 20px;
-    }
-    .btn:hover {
-        cursor: pointer;
-    }
-    .number {
-        font-size: 60px;
-    }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    padding: 0 20px;
+}
+.navbar input {
+    border-radius: 20px;
+    border: none;
+    padding: 12px 16px;
+    background-color: black;
+    color: white;
+}
+::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
 </style>
