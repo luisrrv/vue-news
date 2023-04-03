@@ -22,9 +22,9 @@ export default {
         }
     },
     created() {  
-        console.log(this.greeting);
-        console.log(this.string);
-        console.log('count:',this.count);
+        // console.log(this.greeting);
+        // console.log(this.string);
+        // console.log('count:',this.count);
     },
     methods: {
         incCount() {
@@ -37,13 +37,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "../styles/_variables.scss";
     .btn {
         margin: 8px;
         padding: 8px 16px;
         border: none;
-        background-color: black;
-        color: white;
+        background-color: $white;
+        color: $black;
         border-radius: 12px;
         font-size: 20px;
         min-width: 50px;
@@ -53,5 +54,6 @@ export default {
     }
     .number {
         font-size: 60px;
+        color: $white;
     }
 </style>
