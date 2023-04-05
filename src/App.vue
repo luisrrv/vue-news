@@ -1,23 +1,39 @@
 <template>
-  <NavBar title />
-  <CounterComp string="nav text" />
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  <NavBar title="My App" />
+  <FeedContent :articles-data="articlesData" @update-articles="articlesData = $event" />
 </template>
 
 <script>
-import CounterComp from './components/CounterComp.vue'
+import FeedContent from './components/FeedContent.vue';
 import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'App',
   components: {
-    CounterComp,
+    FeedContent,
     NavBar
   },
+  data() {
+    return {
+      articlesData: [],
+    }
+  },
   created(){
-    // console.log('APP');
-  }
+    this.fetchArticles();
+  },
+  methods: {
+    async fetchArticles() {
+      const apiKey = process.env.NEWS_KEY;
+      const query = '';
+      const date = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString().slice(0, 10);
+      const url = `https://newsapi.org/v2/everything?q=${query || 'japan'}&from=${date}&sortBy=popularity&apiKey=${apiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      this.articlesData = data.articles;
+      console.log(url);
+      console.log('fetched data:', data);
+    },
+  },
 }
 </script>
 
@@ -33,6 +49,14 @@ body {
     filter:invert(1);
     background-color: #eeeeee;
     color: #272a2e;
+    .article, .search {
+      filter: invert(1);
+      background-color: $light-gray;
+      color: $black;
+    }
+    ::placeholder {
+      color: $black;
+    }
   }
 }
 #app {
@@ -40,5 +64,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
