@@ -88,9 +88,7 @@ export default {
             svg:hover {
                 cursor: pointer;
             }
-    
             .menu {
-                
                 .menu-list {
                     display: none;
                 }
@@ -100,7 +98,7 @@ export default {
 
 
     ::placeholder {
-        color: $white;
+        color: $med-gray;
         opacity: 1; /* Firefox */
     }
     .search {
