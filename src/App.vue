@@ -1,5 +1,5 @@
 <template>
-  <NavBar title="My App" />
+  <NavBar :query="query" @search="fetchArticles" />
   <FeedContent :articles-data="articlesData" @update-articles="articlesData = $event" />
 </template>
 
@@ -22,9 +22,8 @@ export default {
     this.fetchArticles();
   },
   methods: {
-    async fetchArticles() {
+    async fetchArticles(query) {
       const apiKey = process.env.NEWS_KEY;
-      const query = '';
       const date = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString().slice(0, 10);
       const url = `https://newsapi.org/v2/everything?q=${query || 'japan'}&from=${date}&sortBy=popularity&apiKey=${apiKey}`;
       const response = await fetch(url);
@@ -36,6 +35,7 @@ export default {
   },
 }
 </script>
+
 
 <style lang="scss">
 body {

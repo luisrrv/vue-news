@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <input class="search" type="text" name="search" id="search" placeholder="Search">
+        <input class="search" type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup="onKeyUp">
     </nav>
 </template>
 
@@ -43,6 +43,7 @@ export default {
             title: 'News Feed',
             path: this.isLightMode ? mdiWeatherNight : mdiWhiteBalanceSunny,
             isLightMode: false,
+            searchTimer: null,
         }
     },
     created() {
@@ -54,7 +55,15 @@ export default {
             this.path = this.isLightMode ? mdiWeatherNight : mdiWhiteBalanceSunny;
             document.querySelector('body').classList.contains('light') ? document.querySelector('body').classList.remove('light') : document.querySelector('body').classList.add('light');
             console.log(this.isLightMode ? 'light mode' : 'dark mode');
-        }
+        },
+        onKeyUp() {
+            if (this.searchTimer) {
+                clearTimeout(this.searchTimer);
+            }
+            this.searchTimer = setTimeout(() => {
+                this.$emit('search', this.query);
+            }, 1000);
+        },
     }
 }
 </script>
