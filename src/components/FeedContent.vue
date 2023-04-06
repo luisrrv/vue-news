@@ -42,13 +42,27 @@
   };
   </script>
   
-  <style lang="scss">
-  @import "../styles/_variables.scss";
-  .articles {
-    margin-top: 16px;
-    align-self: center;
-    width: 90%;
-    max-width: 500px;
-  }
-  </style>
+<style lang="scss">
+    @import "../styles/_variables.scss";
+    .articles {
+        margin-top: 116px;
+        align-self: center;
+        width: 90%;
+        max-width: 500px;
+    }
+    @media screen and (min-width: 800px) {
+        .articles {
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media screen and (min-width: 1100px) {
+        .articles {
+            max-width: 1100px;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+</style>
   

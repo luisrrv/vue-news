@@ -1,24 +1,42 @@
 
 <template >
     <nav class="navbar">
-        <div class="top">
-            <h3>{{title}}</h3>
-            <div class="right">
-                <template v-if="isLightMode">
-                    <DarkIcon type="mdi" :path="path" title="dark mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
-                </template>
-                <template v-else>
-                    <LightIcon type="mdi" :path="path" title="light mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
-                </template>
-                <div class="menu">
-                    <MenuIcon title="menu" size="30" @click="toggleMode" />
-                    <div class="menu-list">
-                        <p>Login</p>
-                    </div>
+        <template v-if="bigDevice">
+            <div class="top">
+                <h3>{{title}}</h3>
+                <div class="right">
+                    <input class="search" type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup="onKeyUp">
+                    <template v-if="isLightMode">
+                        <DarkIcon type="mdi" :path="path" title="dark mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
+                    </template>
+                    <template v-else>
+                        <LightIcon type="mdi" :path="path" title="light mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
+                    </template>
+                        <MenuIcon title="menu" size="30" @click="toggleMode" />
+                        <div class="menu-list">
+                            <p>Login</p>
+                        </div>
                 </div>
             </div>
-        </div>
-        <input class="search" type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup="onKeyUp">
+        </template>
+        <template v-else>
+            <div class="top">
+                <h3>{{title}}</h3>
+                <div class="right">
+                    <template v-if="isLightMode">
+                        <DarkIcon type="mdi" :path="path" title="dark mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
+                    </template>
+                    <template v-else>
+                        <LightIcon type="mdi" :path="path" title="light mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
+                    </template>
+                        <MenuIcon title="menu" size="30" />
+                        <div class="menu-list">
+                            <p>Login</p>
+                        </div>
+                </div>
+            </div>
+            <input class="search" type="text" name="search" id="search" placeholder="Search" v-model="query" @keyup="onKeyUp">
+        </template>
     </nav>
 </template>
 
@@ -41,12 +59,15 @@ export default {
     data(){
         return {
             title: 'News Feed',
-            path: this.isLightMode ? mdiWeatherNight : mdiWhiteBalanceSunny,
-            isLightMode: false,
+            isLightMode: !this.darkModeOn(),
+            path: this.darkModeOn() ? this.path = mdiWhiteBalanceSunny : mdiWeatherNight,
             searchTimer: null,
+            bigDevice: window.innerWidth > 800 ? true : false,
         }
     },
     created() {
+        this.darkModeOn() ? this.path = mdiWhiteBalanceSunny : mdiWeatherNight;
+        console.log('device dark mode:', this.darkModeOn());
         console.log(this.isLightMode ? 'light mode' : 'dark mode');
     },
     methods: {
@@ -64,6 +85,15 @@ export default {
                 this.$emit('search', this.query);
             }, 1000);
         },
+        darkModeOn() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return true;
+            } else {
+                document.querySelector('body').classList.add('light');
+                return false;
+            }
+        },
+        
     }
 }
 </script>
@@ -72,8 +102,14 @@ export default {
 @import "../styles/_variables.scss";
 
 .navbar {
-    padding: 0 20px;
+    position: fixed;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: $dark-bg;
+    width: 100%;
+    z-index: 99;
     .top {
+        padding: 0 20px;
         color: $white;
         display: flex;
         justify-content: space-between;
@@ -83,15 +119,24 @@ export default {
         .right {
             display: flex;
             align-items: center;
+            justify-content: right;
             gap: 12px;
+            &:has(.search) {
+                width: 50%;
+            }
     
             svg:hover {
                 cursor: pointer;
             }
-            .menu {
-                .menu-list {
-                    display: none;
-                }
+            span {
+                height: 30px;
+            }
+            .menu-list {
+                display: none;
+            }
+            .search {
+                max-width: 500px;
+                margin: 0;
             }
         }
     }
@@ -102,15 +147,16 @@ export default {
         opacity: 1; /* Firefox */
     }
     .search {
-            border-radius: 20px;
-            border: none;
-            padding: 12px 16px;
-            background-color: $gray;
-            color: $white;
-            outline: none;
-            width: 80%;
-            max-width: 700px;
-            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-        }
+        margin-bottom: 16px;
+        border-radius: 20px;
+        border: none;
+        padding: 12px 16px;
+        background-color: $gray;
+        color: $white;
+        outline: none;
+        width: 80%;
+        max-width: 700px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
 }
 </style>

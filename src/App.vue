@@ -46,11 +46,21 @@ body {
   color: #eeeeee;
   transition: 200ms;
   &.light {
-    filter:invert(1);
+    // filter:invert(1);
     background-color: #eeeeee;
     color: #272a2e;
+    .navbar {
+      background-color: #eeeeee;
+      .top {
+        h3 {
+          color: #272a2e;
+        }
+        svg {
+          color: #272a2e;
+        }
+      }
+    }
     .article, .search {
-      filter: invert(1);
       background-color: $light-gray;
       color: $black;
     }
