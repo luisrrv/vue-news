@@ -1,6 +1,7 @@
 <template>
   <NavBar :query="query" @search="fetchArticles" />
-  <FeedContent :articles-data="articlesData" @update-articles="articlesData = $event" />
+  <FeedContent visibleArticles :articles-data="articlesData" @update-articles="articlesData = $event" />
+  <p class="see-more" @click="addArticles">See more</p>
 </template>
 
 <script>
@@ -13,26 +14,40 @@ export default {
     FeedContent,
     NavBar
   },
+  props: {
+    visibleArticles: {
+      type: Number,
+      default: 10,
+    },
+    query: {
+    type: String,
+    default: 'japan'
+  }
+  },
   data() {
     return {
       articlesData: [],
+      pageSize: 10
     }
   },
   created(){
-    this.fetchArticles();
+    this.fetchArticles(this.query);
   },
   methods: {
-    async fetchArticles(query) {
+    async fetchArticles(query , pageSize=10) {
       const apiKey = process.env.NEWS_KEY;
       const date = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString().slice(0, 10);
       const url = `https://newsapi.org/v2/everything?q=${query || 'japan'}&from=${date}&sortBy=popularity&apiKey=${apiKey}`;
       const response = await fetch(url);
       const data = await response.json();
-      this.articlesData = data.articles;
-      console.log(url);
-      console.log('fetched data:', data);
+      this.articlesData = data.articles.slice(0,pageSize);
+      console.log('Data fetched from API');
     },
-  },
+      addArticles() {
+          this.pageSize = this.pageSize + 10;
+          this.fetchArticles(this.query, this.pageSize);
+      }
+    }
 }
 </script>
 
@@ -66,6 +81,12 @@ body {
     }
     ::placeholder {
       color: $black;
+    }
+  }
+  .see-more {
+    margin-bottom: 60px;
+    &:hover{
+      cursor: pointer;
     }
   }
 }

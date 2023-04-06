@@ -12,7 +12,7 @@
                     <template v-else>
                         <LightIcon type="mdi" :path="path" title="light mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
                     </template>
-                        <MenuIcon title="menu" size="30" @click="toggleMode" />
+                        <MenuIcon title="menu" @click="toggleMode" />
                         <div class="menu-list">
                             <p>Login</p>
                         </div>
@@ -29,7 +29,7 @@
                     <template v-else>
                         <LightIcon type="mdi" :path="path" title="light mode" fillColor="#eeeeee" size="24" @click="toggleMode" />
                     </template>
-                        <MenuIcon title="menu" size="30" />
+                        <MenuIcon title="menu" />
                         <div class="menu-list">
                             <p>Login</p>
                         </div>
@@ -67,15 +67,12 @@ export default {
     },
     created() {
         this.darkModeOn() ? this.path = mdiWhiteBalanceSunny : mdiWeatherNight;
-        console.log('device dark mode:', this.darkModeOn());
-        console.log(this.isLightMode ? 'light mode' : 'dark mode');
     },
     methods: {
         toggleMode() {
             this.isLightMode = !this.isLightMode;
             this.path = this.isLightMode ? mdiWeatherNight : mdiWhiteBalanceSunny;
             document.querySelector('body').classList.contains('light') ? document.querySelector('body').classList.remove('light') : document.querySelector('body').classList.add('light');
-            console.log(this.isLightMode ? 'light mode' : 'dark mode');
         },
         onKeyUp() {
             if (this.searchTimer) {
@@ -83,7 +80,8 @@ export default {
             }
             this.searchTimer = setTimeout(() => {
                 this.$emit('search', this.query);
-            }, 1000);
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }, 500);
         },
         darkModeOn() {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -129,7 +127,7 @@ export default {
                 cursor: pointer;
             }
             span {
-                height: 30px;
+                height: 24px;
             }
             .menu-list {
                 display: none;

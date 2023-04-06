@@ -10,7 +10,7 @@
         :url="article.url"
       />
     </div>
-  </template>
+</template>
   
   <script>
   import ArticleCard from './ArticleCard.vue';
@@ -36,7 +36,6 @@
             src: article.source.name || 'Uknown',
             url: article.url || '',
           }))
-          .slice(0, 15);
       },
     },
   };
@@ -45,6 +44,9 @@
 <style lang="scss">
     @import "../styles/_variables.scss";
     .articles {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
         margin-top: 116px;
         align-self: center;
         width: 90%;
@@ -63,6 +65,5 @@
             grid-template-columns: repeat(3, 1fr);
         }
     }
-
 </style>
   

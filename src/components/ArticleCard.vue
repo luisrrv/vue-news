@@ -1,15 +1,31 @@
 <template>
     <div class="article" @click="openUrl">
-      <h3 class="title">{{ title }}</h3>
-      <div :style="{ backgroundImage: `url(${img})` }" class="img"></div>
-      <p class="desc">{{ desc }}</p>
-      <p class="src">Source: {{ src }}</p>
+      <div class="top">
+        <h3 class="title">{{ title }}</h3>
+        <div :style="{ backgroundImage: `url(${img})` }" class="img"></div>
+        <p class="desc">{{ desc }}</p>
+      </div>
+      <div class="bottom">
+        <p class="src">Source: {{ src }}</p>
+        <svg-icon type="mdi" :path="path"></svg-icon>
+      </div>
     </div>
   </template>
   
-  <script>
+<script>
+  import SvgIcon from '@jamescoyle/vue-icon';
+  import { mdiOpenInNew } from '@mdi/js';
+
   export default {
     name: 'ArticleCard',
+    components: {
+      SvgIcon,   
+    },
+    data() {
+      return {
+        path: mdiOpenInNew,
+      }
+    },
     props: {
       title: {
         type: String,
@@ -45,12 +61,21 @@
 <style lang="scss">
 @import "../styles/_variables.scss";
     .article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         margin: 8px;
         padding: 2px 0;
         background-color: $gray;
         color: $white;
         border-radius: 12px;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        transition: 0.2s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          transform:scale(101%);
+          box-shadow: rgba(0, 0, 0, 0.30) 0px 1px 4px;
+        }
         .title {
             text-align: start;
             font-size: 18px;
@@ -67,10 +92,18 @@
             font-size: 14px;
             padding: 0 16px;
         }
-        .src {
-            text-align: right;
-            font-size: 12px;
-            padding-right: 16px;
+        .bottom {
+          padding: 0 16px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .src {
+              text-align: left;
+              font-size: 12px;
+          }
+          svg {
+            height: 16px;
+          }
         }
     }
 </style>
