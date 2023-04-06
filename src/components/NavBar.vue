@@ -90,8 +90,7 @@ export default {
                 document.querySelector('body').classList.add('light');
                 return false;
             }
-        },
-        
+        },   
     }
 }
 </script>

@@ -44,8 +44,9 @@ export default {
       console.log('Data fetched from API');
     },
       addArticles() {
+          const searchQuery = document.querySelector('.search').value;
           this.pageSize = this.pageSize + 10;
-          this.fetchArticles(this.query, this.pageSize);
+          this.fetchArticles(searchQuery || this.query, this.pageSize);
       }
     }
 }
