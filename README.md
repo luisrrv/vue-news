@@ -4,11 +4,9 @@
 <br>
 <p float="left">
   <img src="https://user-images.githubusercontent.com/69304255/230318290-f4f0fd8c-874f-41b7-947d-316002ee8b44.png" width="300" /> 
+  <img src="https://user-images.githubusercontent.com/69304255/230333365-f693ebb4-62ca-49ea-9bea-04f435e10aa4.png" width="300" /> 
   <img src="https://user-images.githubusercontent.com/69304255/230317583-4d55654f-af98-4f6b-8c5a-2adf0051deeb.png" width="600" />
 </p>
-
-
-
 
 ## Project setup
 ```
