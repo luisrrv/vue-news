@@ -37,7 +37,7 @@ export default {
     async fetchArticles(query , pageSize=10) {
       const apiKey = process.env.VUE_APP_NEWS_KEY;
       const date = (new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString().slice(0, 10).replaceAll('-', '/'));
-      const url = `https://api.newscatcherapi.com/v2/search?q=${query||'japan'}&from=${date}&lang=en&page_size=50`;
+      const url = `https://api.newscatcherapi.com/v2/search?q=${query||'japan'}&from=${date}&lang=en&page_size=1`;
       const response = await fetch(url,{
         method: 'GET',
         headers: {
@@ -45,6 +45,7 @@ export default {
         }
       });
       const data = await response.json();
+      data.status==='error' && console.log(data.message);
       this.articlesData = data.articles.slice(0,pageSize);
     },
       addArticles() {
