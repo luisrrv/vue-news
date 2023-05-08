@@ -2,11 +2,11 @@
     <div class="article" @click="openUrl">
       <div class="top">
         <h3 class="title">{{ title }}</h3>
-        <div :style="{ backgroundImage: `url(${img})` }" class="img"></div>
-        <p class="desc">{{ desc }}</p>
+        <div :style="{ backgroundImage: `url(${media})` }" class="img"></div>
+        <p class="desc">{{ summary }}</p>
       </div>
       <div class="bottom">
-        <p class="src">Source: {{ src }}</p>
+        <p class="src">Source: {{ rights }}</p>
         <svg-icon type="mdi" :path="path"></svg-icon>
       </div>
     </div>
@@ -31,27 +31,27 @@
         type: String,
         default: 'No title',
       },
-      img: {
+      media: {
         type: String,
         default: 'https://media.istockphoto.com/id/1309699912/vector/vector-illustration-daily-news-paper-template-with-text-and-picture-placeholder.jpg?s=1024x1024&w=is&k=20&c=H-sG8enS-3H7cFcJaLY883g4UbUBN0zNxrQkl2OzjYM=',
       },
-      desc: {
+      summary: {
         type: String,
         default: 'No description',
       },
-      src: {
+      rights: {
         type: String,
         default: 'Uknown',
       },
-      url: {
+      link: {
         type: String,
         default: '',
       },
     },
     methods: {
       openUrl() {
-        if (this.url) {
-          window.open(this.url, '_blank');
+        if (this.link) {
+          window.open(this.link, '_blank');
         }
       },
     },

@@ -4,10 +4,10 @@
         v-for="(article, index) in articles"
         :key="index"
         :title="article.title"
-        :img="article.img"
-        :desc="article.desc"
-        :src="article.src"
-        :url="article.url"
+        :media="article.media"
+        :summary="article.summary"
+        :rights="article.rights"
+        :link="article.link"
       />
     </div>
 </template>
@@ -31,10 +31,10 @@
         return this.articlesData
           .map(article => ({
             title: article.title || 'No title',
-            img: article.urlToImage || 'https://media.istockphoto.com/id/1309699912/vector/vector-illustration-daily-news-paper-template-with-text-and-picture-placeholder.jpg?s=1024x1024&w=is&k=20&c=H-sG8enS-3H7cFcJaLY883g4UbUBN0zNxrQkl2OzjYM=',
-            desc: article.description || 'No description',
-            src: article.source.name || 'Uknown',
-            url: article.url || '',
+            media: article.media || 'https://media.istockphoto.com/id/1309699912/vector/vector-illustration-daily-news-paper-template-with-text-and-picture-placeholder.jpg?s=1024x1024&w=is&k=20&c=H-sG8enS-3H7cFcJaLY883g4UbUBN0zNxrQkl2OzjYM=',
+            summary: article.summary || 'No description',
+            rights: article.rights || 'Uknown',
+            link: article.link || '',
           }))
       },
     },

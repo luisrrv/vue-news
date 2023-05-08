@@ -36,12 +36,16 @@ export default {
   methods: {
     async fetchArticles(query , pageSize=10) {
       const apiKey = process.env.VUE_APP_NEWS_KEY;
-      const date = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString().slice(0, 10);
-      const url = `https://newsapi.org/v2/everything?q=${query || 'japan'}&from=${date}&sortBy=popularity&apiKey=${apiKey}`;
-      const response = await fetch(url);
+      const date = (new Date(new Date().valueOf() - 1000 * 60 * 60 * 24).toISOString().slice(0, 10).replaceAll('-', '/'));
+      const url = `https://api.newscatcherapi.com/v2/search?q=${query||'japan'}&from=${date}&lang=en&page_size=50`;
+      const response = await fetch(url,{
+        method: 'GET',
+        headers: {
+          'x-api-key': apiKey
+        }
+      });
       const data = await response.json();
       this.articlesData = data.articles.slice(0,pageSize);
-      console.log('Data fetched from API');
     },
       addArticles() {
           const searchQuery = document.querySelector('.search').value;
